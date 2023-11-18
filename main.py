@@ -59,42 +59,16 @@ def create_random_schedule():
 
     return schedule
 
-def get_neighbors(i, l):
-    if l > 1:
-        if 0 <= i < l:
-            if i == 0:
-                return [1]
-            if i == l - 1:
-                return [l-2]
-            return [i-1, i+1]
-    return []
-
-
-def make_move(x, A, T):
-    nhbs = get_neighbors(x, len(A))
-    nhb = nhbs[random.choice(range(0, len(nhbs)))]
-
-    delta = A[nhb] - A[x]
-
-    if delta < 0:
-        return nhb
-    else:
-        r = random.random()
-        if r <= (2.72**(-1 * delta)/(T * 1.0)):
-            return nhb
-    return x
-
 
 def simulated_annealing(A):
-    x0 = random.choice(range(0, len(A)))  # Начальный элемент
+    x0 = random.choice(range(0, len(A)))              # Начальный элемент
     T = 1000000000000                                 # Начальная температура
-    k = 1                                       # Коэффициент уменьшения
+    k = 1                                             # Коэффициент уменьшения
 
     answers = []
     while T > 0.00001:
 
-        # x_new = make_move(x_new, A, T)  # Подбор соседей
-        x_new = random.choice(range(0, len(A)))
+        x_new = random.choice(range(0, len(A)))       # Подбор соседей
         delta_f = A[x_new] - A[x0]
 
         if delta_f <= 0:
